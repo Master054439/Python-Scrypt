@@ -1,18 +1,18 @@
-name: Daily Developer Activity
+name: Daily Developer Activity (IST Based)
 
 permissions:
   contents: write
 
 on:
   schedule:
-    - cron: '10 7 * * *'  # 7:10 AM UTC
-    - cron: '43 9 * * *'  # 9:43 AM UTC
-    - cron: '17 12 * * *' # 12:17 PM UTC
-    - cron: '03 14 * * *' # 2:03 PM UTC
-    - cron: '28 16 * * *' # 4:28 PM UTC
-    - cron: '56 18 * * *' # 6:56 PM UTC
-    - cron: '11 21 * * *' # 9:11 PM UTC
-    - cron: '39 23 * * *' # 11:39 PM UTC
+    - cron: '0 7 * * *'   # 12:30 PM IST
+    - cron: '43 9 * * *'  # 3:13 PM IST
+    - cron: '17 12 * * *' # 5:47 PM IST
+    - cron: '3 14 * * *'  # 7:33 PM IST
+    - cron: '30 16 * * *' # 10:00 PM IST
+    - cron: '56 18 * * *' # 12:26 AM IST (next day)
+    - cron: '11 21 * * *' # 2:41 AM IST
+    - cron: '39 23 * * *' # 5:09 AM IST
   workflow_dispatch:
 
 jobs:
@@ -38,9 +38,9 @@ jobs:
                  "Fixed UI responsiveness bug")
 
           RANDOM_TASK=${TASKS[$RANDOM % ${#TASKS[@]}]}
-          echo "# Dev Task - $(date)" > "$FILE"
+          echo "# Dev Task - $(date -d '+5 hours 30 minutes')" > "$FILE"
           echo "$RANDOM_TASK" >> "$FILE"
-          echo "- Time: $(date '+%H:%M:%S')" >> "$FILE"
+          echo "- Time: $(date -d '+5 hours 30 minutes' '+%H:%M:%S')" >> "$FILE"
           echo "- Notes: This was a key improvement step." >> "$FILE"
 
       - name: Commit and Push Changes
@@ -48,5 +48,5 @@ jobs:
           git config --global user.name 'Master054439'
           git config --global user.email 'kundankumarjaiswal05@gmail.com'
           git add task-logs/
-          git commit -m "💻 Dev Activity: $(date '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
+          git commit -m "💻 Dev Activity: $(date -d '+5 hours 30 minutes' '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
           git push
